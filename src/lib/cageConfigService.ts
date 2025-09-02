@@ -10,7 +10,9 @@ export type CageConfiguration = {
 export const cageConfigService = {
   // Get all cage configurations
   async getAllConfigurations(): Promise<CageConfiguration[]> {
-    if (!supabase) throw new Error('Supabase client is not initialized')
+    if (!supabase) {
+      throw new Error('Supabase client is not initialized. Please check your environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY')
+    }
 
     const { data, error } = await supabase
       .from('cage_configurations')
@@ -27,7 +29,9 @@ export const cageConfigService = {
 
   // Update cage configuration (split vs combined)
   async updateConfiguration(cage_num: number, is_split: boolean): Promise<void> {
-    if (!supabase) throw new Error('Supabase client is not initialized')
+    if (!supabase) {
+      throw new Error('Supabase client is not initialized. Please check your environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY')
+    }
 
     const { error: upsertError } = await supabase
       .from('cage_configurations')

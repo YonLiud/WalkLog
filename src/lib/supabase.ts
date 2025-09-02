@@ -1,14 +1,27 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key'
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+// Check if environment variables are configured
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Missing Supabase environment variables:', {
+    url: !!supabaseUrl,
+    key: !!supabaseAnonKey,
+    nodeEnv: process.env.NODE_ENV
+  })
+}
 
 // Only create the client if we have real credentials
-const isConfigured = supabaseUrl !== 'https://placeholder.supabase.co' && 
-                    supabaseAnonKey !== 'placeholder-key' &&
-                    supabaseUrl.includes('supabase.co')
+const isConfigured = supabaseUrl && 
+                    supabaseAnonKey && 
+                    supabaseUrl.includes('supabase.co') &&
+                    supabaseAnonKey.length > 10
 
 export const supabase = isConfigured ? createClient(supabaseUrl, supabaseAnonKey) : null
+
+// Export a helper function to check configuration status
+export const isSupabaseConfigured = () => isConfigured
 
 export type CageRecord = {
   id: number

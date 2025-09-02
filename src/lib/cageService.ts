@@ -3,7 +3,9 @@ import { supabase, type CageRecord } from './supabase'
 export const cageService = {
   // Get all cage records
   async getAllCages(): Promise<CageRecord[]> {
-    if (!supabase) throw new Error('Supabase client is not initialized')
+    if (!supabase) {
+      throw new Error('Supabase client is not initialized. Please check your environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY')
+    }
 
     const { data, error } = await supabase
       .from('cages')
@@ -31,7 +33,9 @@ export const cageService = {
 
   // Update cage state
   async updateCageState(id: number, state: 0 | 1 | 2): Promise<CageRecord> {
-    if (!supabase) throw new Error('Supabase client is not initialized')
+    if (!supabase) {
+      throw new Error('Supabase client is not initialized. Please check your environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY')
+    }
 
     const { data, error } = await supabase
       .from('cages')

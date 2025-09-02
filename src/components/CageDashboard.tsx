@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { type CageRecord } from '@/lib/supabase'
+import { type CageRecord, isSupabaseConfigured } from '@/lib/supabase'
 import { cageService } from '@/lib/cageService'
 import { cageConfigService, type CageConfiguration } from '@/lib/cageConfigService'
 import CageCard from './CageCard'
@@ -71,6 +71,12 @@ export default function CageDashboard() {
   const loadCages = async () => {
     try {
       setError(null)
+      
+      // Check Supabase configuration first
+      if (!isSupabaseConfigured()) {
+        throw new Error('Supabase is not configured. Please check your environment variables.')
+      }
+      
       const [cageData, configData] = await Promise.all([
         cageService.getAllCages(),
         cageConfigService.getAllConfigurations()
@@ -78,7 +84,8 @@ export default function CageDashboard() {
       setCages(cageData)
       setConfigurations(configData)
     } catch (err) {
-      setError('Failed to load cages. Please check your database connection.')
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
+      setError(`Failed to load cages: ${errorMessage}`)
       console.error('Error loading cages:', err)
     } finally {
       setLoading(false)
