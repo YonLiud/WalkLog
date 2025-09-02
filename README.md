@@ -44,6 +44,8 @@ npm install
 1. Create a new project at [supabase.com](https://supabase.com)
 2. Go to Settings > API to get your project URL and anon key
 3. Copy the SQL from `database/setup.sql` and run it in the Supabase SQL Editor
+4. Copy the SQL from `database/setup-cage-configurations.sql` and run it in the Supabase SQL Editor
+5. Run the SQL from `database/insert-21-cages.sql` to add sample cages
 
 ### 3. Configure Environment Variables
 

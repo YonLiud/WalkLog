@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react'
 import { type CageRecord } from '@/lib/supabase'
 import { cageService } from '@/lib/cageService'
+import { cageConfigService, type CageConfiguration } from '@/lib/cageConfigService'
 import CageCard from './CageCard'
+import CageConfigManager from './CageConfigManager'
 
 interface CagesByNumber {
   [cageNum: number]: CageRecord[]
@@ -11,9 +13,11 @@ interface CagesByNumber {
 
 export default function CageDashboard() {
   const [cages, setCages] = useState<CageRecord[]>([])
+  const [configurations, setConfigurations] = useState<CageConfiguration[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isConnected, setIsConnected] = useState(false)
+  const [showConfigManager, setShowConfigManager] = useState(false)
 
   useEffect(() => {
     loadCages()
@@ -67,8 +71,12 @@ export default function CageDashboard() {
   const loadCages = async () => {
     try {
       setError(null)
-      const data = await cageService.getAllCages()
-      setCages(data)
+      const [cageData, configData] = await Promise.all([
+        cageService.getAllCages(),
+        cageConfigService.getAllConfigurations()
+      ])
+      setCages(cageData)
+      setConfigurations(configData)
     } catch (err) {
       setError('Failed to load cages. Please check your database connection.')
       console.error('Error loading cages:', err)
@@ -189,6 +197,16 @@ export default function CageDashboard() {
                   {isConnected ? 'Live' : 'Offline'}
                 </span>
               </div>
+              
+              {/* Configuration button */}
+              <button
+                onClick={() => setShowConfigManager(true)}
+                className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 flex items-center space-x-1"
+              >
+                <span>⚙️</span>
+                <span>Config</span>
+              </button>
+              
               {/* Test button for real-time */}
               <button
                 onClick={async () => {
@@ -261,6 +279,13 @@ export default function CageDashboard() {
           </div>
         </div>
       </footer>
+
+      {/* Configuration Manager Modal */}
+      <CageConfigManager
+        isOpen={showConfigManager}
+        onClose={() => setShowConfigManager(false)}
+        onConfigurationChange={loadCages}
+      />
     </div>
   )
 }
