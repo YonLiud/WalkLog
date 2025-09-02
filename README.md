@@ -11,6 +11,17 @@ A mobile-first web application for tracking kennel cage care. Each cage has Inne
 - ✅ Visual status indicators with color coding
 - ✅ Progress tracking and statistics
 
+# Demo
+
+### Desktop
+
+<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/265a9762-007e-421d-b757-085aaca71348" />
+
+### Mobile
+
+<img width="512" height="1141" alt="image" src="https://github.com/user-attachments/assets/2fb6bfd2-48fe-433e-9cd8-ba1e9c0cfe44" />
+
+
 ## Technology Stack
 
 - **Frontend**: React 19, Next.js 15, TypeScript, Tailwind CSS
