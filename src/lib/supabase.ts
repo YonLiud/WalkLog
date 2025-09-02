@@ -30,7 +30,9 @@ const isConfigured = Boolean(
   supabaseAnonKey.trim().length > 0
 );
 
-export const supabase = isConfigured ? createClient(supabaseUrl, supabaseAnonKey) : null
+export const supabase = isConfigured
+  ? createClient(supabaseUrl!, supabaseAnonKey!)
+  : null
 
 // Export a helper function to check configuration status
 export const isSupabaseConfigured = () => isConfigured
