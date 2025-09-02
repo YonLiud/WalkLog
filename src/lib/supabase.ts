@@ -12,11 +12,23 @@ if (!supabaseUrl || !supabaseAnonKey) {
   })
 }
 
+// Helper to check if a string is a valid URL
+function isValidUrl(url: string): boolean {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 // Only create the client if we have real credentials
-const isConfigured = supabaseUrl && 
-                    supabaseAnonKey && 
-                    supabaseUrl.includes('supabase.co') &&
-                    supabaseAnonKey.length > 10
+const isConfigured = Boolean(
+  supabaseUrl &&
+  isValidUrl(supabaseUrl) &&
+  typeof supabaseAnonKey === 'string' &&
+  supabaseAnonKey.trim().length > 0
+);
 
 export const supabase = isConfigured ? createClient(supabaseUrl, supabaseAnonKey) : null
 
