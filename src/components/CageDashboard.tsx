@@ -213,21 +213,6 @@ export default function CageDashboard() {
                 <span>⚙️</span>
                 <span>Config</span>
               </button>
-              
-              {/* Test button for real-time */}
-              <button
-                onClick={async () => {
-                  console.log('Testing real-time by updating first cage...')
-                  const firstCage = cages[0]
-                  if (firstCage) {
-                    const newState = ((firstCage.state + 1) % 3) as 0 | 1 | 2
-                    await handleStateChange(firstCage.id, newState)
-                  }
-                }}
-                className="px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded hover:bg-blue-200"
-              >
-                Test
-              </button>
             </div>
           </div>
         </div>
@@ -246,7 +231,7 @@ export default function CageDashboard() {
           <div className="space-y-6">
             {sortedCageNumbers.map(cageNum => (
               <div key={cageNum} className="space-y-3">
-                <h2 className="text-lg font-semibold text-gray-700 px-1">
+                <h2 className="text-lg font-semibold text-gray-700 px-1 text-center">
                   Cage {cageNum}
                 </h2>
                 <div className="space-y-2">
