@@ -141,9 +141,9 @@ export default function CageDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
+        <div className="text-center animate-in fade-in duration-500">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading cages...</p>
+          <p className="text-gray-600 animate-pulse">Loading cages...</p>
         </div>
       </div>
     )
@@ -154,8 +154,8 @@ export default function CageDashboard() {
     
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center p-6 max-w-lg">
-          <div className="text-red-600 text-xl mb-4">⚠️</div>
+        <div className="text-center p-6 max-w-lg animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="text-red-600 text-xl mb-4 animate-bounce">⚠️</div>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">
             {isSetupError ? 'Database Setup Required' : 'Connection Error'}
           </h2>
@@ -176,7 +176,7 @@ export default function CageDashboard() {
           
           <button 
             onClick={loadCages}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95"
           >
             Retry
           </button>
@@ -199,8 +199,8 @@ export default function CageDashboard() {
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 text-sm">
-                <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-gray-400'}`}></div>
-                <span className={isConnected ? 'text-green-600' : 'text-gray-500'}>
+                <div className={`w-2 h-2 rounded-full transition-all duration-500 ease-in-out ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`}></div>
+                <span className={`transition-colors duration-300 ${isConnected ? 'text-green-600' : 'text-gray-500'}`}>
                   {isConnected ? 'Live' : 'Offline'}
                 </span>
               </div>
@@ -208,7 +208,7 @@ export default function CageDashboard() {
               {/* Configuration button */}
               <button
                 onClick={() => setShowConfigManager(true)}
-                className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 flex items-center space-x-1"
+                className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95 flex items-center space-x-1"
               >
                 <span>⚙️</span>
                 <span>Config</span>
@@ -221,29 +221,31 @@ export default function CageDashboard() {
       {/* Main content */}
       <main className="max-w-4xl mx-auto px-4 py-6">
         {sortedCageNumbers.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="text-6xl mb-4 animate-bounce">🏠</div>
             <p className="text-gray-500 text-lg">No cages found</p>
             <p className="text-gray-400 text-sm mt-2">
               Add cage records to your database to get started
             </p>
           </div>
         ) : (
-          <div className="space-y-6">
-            {sortedCageNumbers.map(cageNum => (
-              <div key={cageNum} className="space-y-3">
-                <h2 className="text-lg font-semibold text-gray-700 px-1 text-center">
-                  Cage {cageNum}
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+            {sortedCageNumbers.map((cageNum, index) => (
+              <div key={cageNum} className="space-y-3 animate-in fade-in slide-in-from-left-4 duration-300" style={{ animationDelay: `${index * 100}ms` }}>
+                <h2 className="text-lg font-semibold text-gray-700 px-1 text-center transition-all duration-300 hover:text-gray-900">
+                  {cageNum}
                 </h2>
                 <div className="space-y-2">
                   {cagesByNumber[cageNum]
                     .sort((a, b) => a.cell_side.localeCompare(b.cell_side))
-                    .map(cage => (
-                    <CageCard
-                      key={cage.id}
-                      cage={cage}
-                      onStateChange={handleStateChange}
-                      onNotesChange={handleNotesChange}
-                    />
+                    .map((cage, cageIndex) => (
+                    <div key={cage.id} className="animate-in fade-in slide-in-from-right-2 duration-300" style={{ animationDelay: `${(index * 100) + (cageIndex * 50)}ms` }}>
+                      <CageCard
+                        cage={cage}
+                        onStateChange={handleStateChange}
+                        onNotesChange={handleNotesChange}
+                      />
+                    </div>
                   ))}
                 </div>
               </div>

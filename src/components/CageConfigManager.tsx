@@ -56,15 +56,15 @@ export default function CageConfigManager({ isOpen, onClose, onConfigurationChan
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 transition-all duration-300 ease-in-out animate-in fade-in">
+      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-hidden transform transition-all duration-300 ease-in-out animate-in slide-in-from-bottom-4 scale-in-95">
         {/* Header */}
         <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold text-gray-800">Cage Configuration</h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 text-2xl"
+              className="text-gray-400 hover:text-gray-600 text-2xl transition-all duration-200 ease-in-out hover:scale-110 hover:rotate-90 transform"
             >
               ×
             </button>
@@ -110,10 +110,10 @@ export default function CageConfigManager({ isOpen, onClose, onConfigurationChan
                   <button
                     onClick={() => toggleCageConfiguration(config.cage_num, config.is_split)}
                     disabled={saving === config.cage_num}
-                    className={`w-full py-2 px-3 rounded text-sm font-medium transition-colors ${
+                    className={`w-full py-2 px-3 rounded text-sm font-medium transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 ${
                       config.is_split
-                        ? 'bg-green-600 text-white hover:bg-green-700 disabled:bg-green-400'
-                        : 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-400'
+                        ? 'bg-green-600 text-white hover:bg-green-700 disabled:bg-green-400 hover:shadow-lg'
+                        : 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-400 hover:shadow-lg'
                     }`}
                   >
                     {saving === config.cage_num ? (
@@ -142,7 +142,7 @@ export default function CageConfigManager({ isOpen, onClose, onConfigurationChan
             </div>
             <button
               onClick={onClose}
-              className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+              className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95"
             >
               Close
             </button>

@@ -33,7 +33,7 @@ export default function CageCard({ cage, onStateChange, onNotesChange }: CageCar
     
     // Flash effect when cage data changes (from live updates)
     setIsUpdating(true)
-    const timer = setTimeout(() => setIsUpdating(false), 300)
+    const timer = setTimeout(() => setIsUpdating(false), 600)
     
     return () => clearTimeout(timer)
   }, [cage.notes, cage.state])
@@ -66,11 +66,11 @@ export default function CageCard({ cage, onStateChange, onNotesChange }: CageCar
   }
 
   return (
-    <div className={`bg-white rounded-lg shadow-md border-2 overflow-hidden transition-all duration-300 ${isUpdating ? 'ring-2 ring-blue-400 ring-opacity-75' : ''}`}>
+    <div className={`bg-white rounded-lg shadow-md border-2 overflow-hidden transition-all duration-500 ease-in-out transform ${isUpdating ? 'ring-2 ring-blue-400 ring-opacity-75 scale-105' : 'scale-100'}`}>
       {/* Main cage state button */}
       <button
         onClick={handleStateClick}
-        className={`w-full p-4 text-left transition-colors duration-200 border-2 ${STATE_COLORS[cage.state]} hover:opacity-80 active:scale-95`}
+        className={`w-full p-4 text-left transition-all duration-300 ease-in-out border-2 ${STATE_COLORS[cage.state]} hover:opacity-80 hover:scale-[1.02] active:scale-95 transform`}
       >
         <div className="flex justify-between items-start">
           <div>
@@ -93,28 +93,28 @@ export default function CageCard({ cage, onStateChange, onNotesChange }: CageCar
       <div className="border-t border-gray-200">
         <button
           onClick={() => setIsNotesExpanded(!isNotesExpanded)}
-          className="w-full p-3 text-left text-sm text-gray-600 hover:bg-gray-50 flex justify-between items-center"
+          className="w-full p-3 text-left text-sm text-gray-600 hover:bg-gray-50 transition-all duration-200 ease-in-out flex justify-between items-center"
         >
-          <span className={`transform transition-transform ${isNotesExpanded ? 'rotate-180' : ''}`}>
+          <span className={`transform transition-all duration-300 ease-in-out ${isNotesExpanded ? 'rotate-180' : 'rotate-0'}`}>
             ▼
           </span>
         </button>
         
-        {isNotesExpanded && (
+        <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isNotesExpanded ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="p-3 border-t border-gray-100">
             <textarea
               value={notes}
               onChange={(e) => handleNotesChange(e.target.value)}
               onBlur={handleNotesBlur}
               placeholder="Add notes for this cage..."
-              className="w-full min-h-[80px] p-2 border border-gray-300 rounded resize-none text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full min-h-[80px] p-2 border border-gray-300 rounded resize-none text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ease-in-out"
               maxLength={500}
             />
-            <div className="text-xs text-gray-400 mt-1 text-right">
+            <div className="text-xs text-gray-400 mt-1 text-right transition-opacity duration-200">
               {notes.length}/500
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )
