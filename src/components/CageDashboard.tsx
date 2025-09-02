@@ -56,10 +56,6 @@ export default function CageDashboard() {
     })
 
     // Set connected status after subscription is set up
-    setTimeout(() => {
-      console.log('Checking if real-time is connected...')
-      // Note: Real connection status depends on Supabase real-time being enabled
-    }, 1000)
 
     return () => {
       console.log('Unsubscribing from real-time updates')
