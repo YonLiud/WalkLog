@@ -1,9 +1,9 @@
-# Kennel Care Tracker
+# Walk Log
 
 A mobile-first web application for tracking kennel cage care. Each cage has Inner and Outer cells that can be marked as "Not yet", "Walked", or "Do not walk" with optional notes per cage. Built with React, Next.js, and Supabase for persistent storage.
 
 ## Features
-
+   
 - ✅ Mobile-first responsive design
 - ✅ Quick tap to cycle through states: Not yet → Walked → Do not walk
 - ✅ Optional notes per cage with auto-save

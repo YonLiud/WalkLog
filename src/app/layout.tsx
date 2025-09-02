@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kennel Care Tracker",
-  description: "Mobile-first web app for tracking kennel cage care",
+  title: "Walk Log",
+  description: "Mobile-first web app for tracking dog walking activities",
 };
 
 export default function RootLayout({
