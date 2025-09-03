@@ -37,43 +37,6 @@ A mobile-first web application for tracking kennel cage care. Each cage has Inne
 | cell_side | text                  | "Inner", "Outer", or "Both"      |
 | state     | int                   | 0 = Not yet, 1 = Walked, 2 = Do not walk |
 | notes     | text                  | Optional note for the cage/cell  |
-| created_at| timestamp             | Record creation time             |
-| updated_at| timestamp             | Last update time                 |
-
-## Setup Instructions
-
-### 1. Clone and Install Dependencies
-
-```bash
-git clone <your-repo>
-cd walklog
-npm install
-```
-
-### 2. Set up Supabase
-
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to Settings > API to get your project URL and anon key
-3. Copy the SQL from `database/setup.sql` and run it in the Supabase SQL Editor
-4. Copy the SQL from `database/setup-cage-configurations.sql` and run it in the Supabase SQL Editor
-5. Run the SQL from `database/insert-21-cages.sql` to add sample cages
-
-### 3. Configure Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-```
-
-### 4. Run the Development Server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## Usage
 
